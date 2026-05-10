@@ -1,20 +1,14 @@
-import { getStrapiData } from "@/lib/strapi";
-import Image from "next/image";
+import { getHomePage } from "@/lib/strapi";
 
 export default async function Home() {
-  const dataStrapi = await getStrapiData('/api/home-page')
-  const data = dataStrapi.data
-  console.log(data.sections)
+  const dataStrapi = await getHomePage()
+  const {title, description} = dataStrapi
+  // console.log(data)
 
   return (
     <main className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold">{data.title}</h1>
-      <p className="text-gray-700">{data.description}</p>
-
-      <Image
-        src={data.sections.image.url}
-        alt="Image-hero"
-      />
+      <h1 className="text-3xl font-bold">{title}</h1>
+      <p className="text-gray-700">{description}</p>
     </main>
   )
 }
